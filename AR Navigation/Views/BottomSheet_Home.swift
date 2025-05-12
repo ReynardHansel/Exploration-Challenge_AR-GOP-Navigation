@@ -50,6 +50,7 @@ struct BottomSheet_Home: View {
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.customPrimary)
+                
                 VStack(spacing: 0) {
                     ForEach(destinations) { destination in
                         Text(destination.name)
