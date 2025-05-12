@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BottomSheet_Home: View {
+    let destinations = showcaseDestination
     @State private var searchText = ""
 
     var body: some View {
@@ -38,6 +39,38 @@ struct BottomSheet_Home: View {
                     QuickButton(iconName: "cart.fill", bgColor: Color.elementYellow)
                 }
             }
+            
+            // MARK: - Recommendedations
+            
+            // MARK: - Recents
+            
+            // MARK: - All Locations
+            VStack(alignment: .leading) {
+                Text("All Locations")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.customPrimary)
+                VStack(spacing: 0) {
+                    ForEach(destinations) { destination in
+                        Text(destination.name)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 10)
+                        
+                        if destination.id != destinations.last?.id {
+                            Divider()
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .foregroundStyle(Color.customPrimary)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.customPrimary, lineWidth: 1)
+                )
+            }
+
         }
         .padding(.horizontal, 21.0)
         .padding(.vertical, 25.0)
