@@ -13,6 +13,7 @@ enum ElementIconType: String {
     case parking = "Parking"
     case grocery = "Grocery"
     case other = "Other"
+    case FnB = "FnB"
     
     var systemName: String {
         switch self {
@@ -24,6 +25,8 @@ enum ElementIconType: String {
             return "parkingsign"
         case .grocery:
             return "cart.fill"
+        case .FnB:
+            return "fork.knife"
         case .other:
             return "mappin"
         }
@@ -39,6 +42,8 @@ enum ElementIconType: String {
             return Color.elementDarkGreen
         case .grocery:
             return Color.elementYellow
+        case .FnB:
+            return Color.elementOrange
         case .other:
             return Color.elementBrokenBrown
         }
@@ -47,7 +52,7 @@ enum ElementIconType: String {
 
 struct ElementIcon: View {
     let type: ElementIconType
-    let size: CGFloat = 60
+    let size: CGFloat = 40
     
     var body: some View {
         Image(systemName: type.systemName)
@@ -55,19 +60,20 @@ struct ElementIcon: View {
             .scaledToFit()
             .frame(width: size * 0.5, height: size * 0.5)
             .foregroundColor(.white)
-            .padding()
+            .padding(8)
             .background(type.backgroundColor)
             .clipShape(Circle())
     }
 }
 
 #Preview {
-    HStack(spacing: 24) {
+    LazyVStack(spacing: 24) {
         ElementIcon(type: .building)
         ElementIcon(type: .parking)
         ElementIcon(type: .toilet)
         ElementIcon(type: .grocery)
         ElementIcon(type: .other)
+        ElementIcon(type: .FnB)
     }
 //    .padding()
 //    .background(Color.black)

@@ -47,15 +47,18 @@ struct BottomSheet_Home: View {
             // MARK: - All Locations
             VStack(alignment: .leading) {
                 Text("All Locations")
-                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.customPrimary)
                 
                 VStack(spacing: 0) {
                     ForEach(destinations) { destination in
-                        Text(destination.name)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical, 10)
+                        HStack {
+                            ElementIcon(type: destination.elementIcon)
+                                .padding(.trailing, 7)
+                            Text(destination.name)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding(.vertical, 10)
                         
                         if destination.id != destinations.last?.id {
                             Divider()
