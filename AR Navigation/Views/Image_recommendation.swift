@@ -16,7 +16,7 @@ struct Image_recommendation: View {
             Image(imageName)
                 .resizable()
                 .frame(width: 120, height: 150)
-                .cornerRadius(6)
+                .cornerRadius(12)
                 .overlay(
                     // Gradient overlay
                     LinearGradient(

@@ -10,6 +10,11 @@ import SwiftUI
 struct BottomSheet_Home: View {
     let destinations = showcaseDestination
     @State private var searchText = ""
+    
+    private var filtered: [Destination] {
+        guard !searchText.isEmpty else { return destinations }
+        return destinations.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+    }
 
     var body: some View {
         ScrollView {
@@ -40,17 +45,18 @@ struct BottomSheet_Home: View {
                 }
                 .padding(12)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 6)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.customPrimary, lineWidth: 1)
                 )
 
-
                 // MARK: Content
-                HomeContentView(destinations: destinations, searchText: $searchText)
-                
-                
+                if searchText.isEmpty {
+                    HomeContentView(destinations: destinations, searchText: $searchText)
+                } else {
+                    SectionListView(title: "Search Result", items: filtered, isSearching: !searchText.isEmpty)
+                }
             }
             .padding(.horizontal, 21)
             .padding(.vertical, 30)
@@ -67,6 +73,7 @@ struct BottomSheet_Home: View {
 struct SectionListView: View {
     let title: String
     let items: [Destination]
+    var isSearching: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -74,31 +81,47 @@ struct SectionListView: View {
                 .fontWeight(.bold)
                 .foregroundColor(Color.customPrimary)
 
-            VStack(spacing: 7) {
-                ForEach(items) { dest in
-                    Button {
-                        
-                    } label: {
-                        HStack {
-                            ElementIcon(type: dest.elementIcon)
-                                .padding(.trailing, 7)
-                            Text(dest.name)
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+            Group {
+                if items.isEmpty {
+                Text("No results")
+                    .italic()
+                    .foregroundColor(Color.customPrimary.opacity(0.6))
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                } else {
+                    VStack(spacing: 7) {
+                        ForEach(items) { dest in
+                            Button {
+                                
+                            } label: {
+                                if items.count == 0 {
+                                    Text("No Result Found")
+                                    
+                                }
+                                HStack {
+                                    ElementIcon(type: dest.elementIcon)
+                                        .padding(.trailing, 7)
+                                    Text(dest.name)
+                                        .fontWeight(.semibold)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
+                            .padding(.vertical, 10)
+                            
+                            if dest.id != items.last?.id {
+                                Divider().overlay(Color.customPrimary.opacity(1))
+                            }
                         }
                     }
-                    .padding(.vertical, 10)
-
-                    if dest.id != items.last?.id {
-                        Divider()
-                    }
+                    .padding(.horizontal, isSearching ? 0 : 17)
+                    .padding(.vertical, 7)
+                    .foregroundStyle(Color.customPrimary)
+                    // MARK: Background nya ganti ke off white dikit (jgn trll white pkonya)
+                    .background(
+                        isSearching ? Color.clear : Color(white: 0.95)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
                 }
             }
-            .padding(.horizontal)
-            .padding(.vertical, 10)
-            .foregroundStyle(Color.customPrimary)
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 6))
         }
     }
 }
@@ -126,12 +149,6 @@ struct QuickButton: View {
 struct HomeContentView: View {
     let destinations: [Destination]
     @Binding var searchText: String
-
-    // you can filter here if you want
-    private var filtered: [Destination] {
-        guard !searchText.isEmpty else { return destinations }
-        return destinations.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-    }
 
     var body: some View {
         VStack(spacing: 20) {

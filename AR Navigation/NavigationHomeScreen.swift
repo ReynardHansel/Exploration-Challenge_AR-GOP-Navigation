@@ -31,7 +31,7 @@ struct NavigationHomeScreen: View {
     @State var showModal : Bool = false
 
     // Access / import destination data (from: Destination.swift)
-    let destinations = showcaseDestination//destinationDBShowcase
+    let destinations = showcaseDestination //destinationDBShowcase
 
     var body: some View {
             // Map as background
@@ -51,7 +51,6 @@ struct NavigationHomeScreen: View {
                 MapUserLocationButton()
             }
             .mapStyle(.standard(pointsOfInterest: .all))
-            .edgesIgnoringSafeArea(.all)
             .onAppear {
 //                locationManager.requestLocation()
             }
@@ -61,7 +60,7 @@ struct NavigationHomeScreen: View {
                     .presentationDetents([.fraction(0.1), .medium, .large])
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                    .presentationCornerRadius(15)
+                    .presentationCornerRadius(20)
                     .interactiveDismissDisabled()
                     .presentationBackground(Color.background)
             }
