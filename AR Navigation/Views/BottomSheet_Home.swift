@@ -17,7 +17,8 @@ struct BottomSheet_Home: View {
                 // MARK: - Search Bar
                 TextField(
                     "", text: $searchText,
-                    prompt: Text("Search your destination...")
+                    prompt:
+                        Text("Search your destination...")
                         .foregroundStyle(Color.customPrimary.opacity(0.5))
                 )
                 .padding(12)
@@ -46,6 +47,22 @@ struct BottomSheet_Home: View {
                 }
                 
                 // MARK: - Recommendedations
+                VStack(alignment: .leading) {
+                    Text("Recommendations")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.customPrimary)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            Image_recommendation(imageName: .collab04LabApple, location: "Lab Collab 4")
+                            Image_recommendation(imageName: .toiletGOP9, location: "Toilet GOP 9")
+                            Image_recommendation(imageName: .kopiArabicaTheBreeze, location: "Kopi Arabica The Breeze")
+                            Image_recommendation(imageName: .stairsToParking, location: "Stairs to Parking")
+                        }
+                        .padding(.horizontal, 1) // Optional: gives a little breathing room
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 // MARK: - Recents
                 VStack(alignment: .leading) {
@@ -60,6 +77,7 @@ struct BottomSheet_Home: View {
                                     .padding(.trailing, 7)
                                 Text(destination.name)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fontWeight(.semibold)
                             }
                             .padding(.vertical, 10)
                             
@@ -92,6 +110,7 @@ struct BottomSheet_Home: View {
                                     .padding(.trailing, 7)
                                 Text(destination.name)
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fontWeight(.semibold)
                             }
                             .padding(.vertical, 10)
                             
