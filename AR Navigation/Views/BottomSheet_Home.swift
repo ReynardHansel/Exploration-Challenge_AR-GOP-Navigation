@@ -47,8 +47,10 @@ struct BottomSheet_Home: View {
                 )
 
 
-                // MARK: – Extracted content
+                // MARK: Content
                 HomeContentView(destinations: destinations, searchText: $searchText)
+                
+                
             }
             .padding(.horizontal, 21)
             .padding(.vertical, 30)
@@ -74,12 +76,16 @@ struct SectionListView: View {
 
             VStack(spacing: 7) {
                 ForEach(items) { dest in
-                    HStack {
-                        ElementIcon(type: dest.elementIcon)
-                            .padding(.trailing, 7)
-                        Text(dest.name)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                    Button {
+                        
+                    } label: {
+                        HStack {
+                            ElementIcon(type: dest.elementIcon)
+                                .padding(.trailing, 7)
+                            Text(dest.name)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
                     .padding(.vertical, 10)
 
