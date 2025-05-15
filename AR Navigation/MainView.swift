@@ -33,7 +33,12 @@ struct MainView: View {
 //                }
 //            }
 //        }
-        BottomSheet_Home()
+//        BottomSheet_Home()
+        NavigationHomeScreen(
+            path: $path,
+            locationDataManager: locationDataManager,
+            pathFindingManager: pathFindingManager
+        )
     }
 }
 

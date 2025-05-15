@@ -10,6 +10,9 @@ import MapKit
 import SwiftUI
 
 struct NavigationHomeScreen: View {
+    // Bottom Sheet State
+    @State private var isBottomSheetOpen = true
+    
     // Location Manager to track user position
     @Binding var path : NavigationPath
     
@@ -24,26 +27,26 @@ struct NavigationHomeScreen: View {
         fallback: .automatic)
 
     // Search State
-    @State private var searchText = ""
+//    @State private var searchText = ""
     @State private var selectedDestination: Destination? = nil
-    @FocusState private var isSearchBarFocused: Bool
+//    @FocusState private var isSearchBarFocused: Bool
     
     @State var showModal : Bool = false
 
     // Access / import destination data (from: Destination.swift)
     let destinations = showcaseDestination//destinationDBShowcase
 
-    var filteredDestinations: [Destination] {
-        if searchText.isEmpty { return destinations }  //* --> returns all list (no filter)
-
-        return destinations.filter {
-            $0.name.localizedCaseInsensitiveContains(searchText)
-        }  //* --> returns filtered list based on search value
-    }
+//    var filteredDestinations: [Destination] {
+//        if searchText.isEmpty { return destinations }  //* --> returns all list (no filter)
+//
+//        return destinations.filter {
+//            $0.name.localizedCaseInsensitiveContains(searchText)
+//        }  //* --> returns filtered list based on search value
+//    }
     //* --> This is a computed property. LEARN MORE ABOUT THIS!. Intinya yg gw tangkep: provides a getter and setter (optional)
 
     var body: some View {
-        ZStack {
+//        ZStack {
             // Map as background
             Map(position: $cameraPosition) {
                 UserAnnotation()
@@ -73,7 +76,27 @@ struct NavigationHomeScreen: View {
             .onAppear {
 //                locationManager.requestLocation()
             }
-//            .sheet(isPresented: <#T##Binding<Bool>#>, content: <#T##() -> View#>)
+            .sheet(isPresented: $isBottomSheetOpen) {
+//                List(1...10, id: \.self) { n in
+//                    Text("Row \(n)")
+//                        .listRowBackground(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .strokeBorder(.blue, lineWidth: 2)
+//                                .padding(.top, n == 1 ? 0 : -15)
+//                                .padding(.bottom, n == 10 ? 0 : -15)
+//                                .clipShape(Rectangle())
+//                        )
+//                }
+//                .presentationDetents([.fraction(0.1), .medium, .large])
+//                .interactiveDismissDisabled()
+                BottomSheet_Home()
+                    .presentationDetents([.fraction(0.1), .medium, .large])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled(upThrough: .large))
+                    .presentationCornerRadius(15)
+                    .interactiveDismissDisabled()
+                    .presentationBackground(Color.background)
+            }
 
 //            VStack {
 //                // Search bar
@@ -174,8 +197,8 @@ struct NavigationHomeScreen: View {
 //            .padding(.horizontal)
             
                     
-        }
-        .onTapGesture { isSearchBarFocused = false }
+//        }
+//        .onTapGesture { isSearchBarFocused = false }
     }
 }
 
