@@ -12,6 +12,8 @@ import SwiftUI
 struct NavigationHomeScreen: View {
     // Bottom Sheet State
     @State private var isBottomSheetOpen = true
+//    @ObservedObject var navVM = NavigationHomeViewModel.shared
+//    @ObservedObject var detent : PresentationDetent = navigationhomeviewmodel.shared.sheetDetent
     
     // Location Manager to track user position
     @Binding var path : NavigationPath

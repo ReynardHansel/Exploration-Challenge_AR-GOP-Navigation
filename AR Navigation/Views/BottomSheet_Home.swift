@@ -8,35 +8,26 @@
 import SwiftUI
 
 struct BottomSheet_Home: View {
-    let destinations = showcaseDestination
-    @State private var searchText = ""
+    @StateObject private var vm = BottomSheetHomeViewModel()
     
-    private var filtered: [Destination] {
-        guard !searchText.isEmpty else { return destinations }
-        return destinations.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-    }
-
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // MARK: - Search Bar
+                // — Search Bar
                 HStack {
-                    // MARK: Magnifying Glass
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(Color.customPrimary.opacity(0.8))
-
-                    // MARK: Input
+                    
                     TextField(
                         "",
-                        text: $searchText,
+                        text: $vm.searchText,
                         prompt: Text("Search your destination…")
                             .foregroundStyle(Color.customPrimary.opacity(0.5))
                     )
-
-                    // MARK: Clear Button
-                    if !searchText.isEmpty {
+                    
+                    if !vm.searchText.isEmpty {
                         Button {
-                            searchText = ""
+                            vm.clearSearch()
                         } label: {
                             Image(systemName: "xmark.circle")
                                 .foregroundStyle(Color.red)
@@ -50,12 +41,16 @@ struct BottomSheet_Home: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.customPrimary, lineWidth: 1)
                 )
-
-                // MARK: Content
-                if searchText.isEmpty {
-                    HomeContentView(destinations: destinations, searchText: $searchText)
+                
+                // — Content
+                if vm.searchText.isEmpty {
+                    HomeContentView(destinations: vm.allDestinations, searchText: $vm.searchText)
                 } else {
-                    SectionListView(title: "Search Result", items: filtered, isSearching: !searchText.isEmpty)
+                    SectionListView(
+                        title: "Search Results",
+                        items: vm.filteredDestinations,
+                        isSearching: true
+                    )
                 }
             }
             .padding(.horizontal, 21)
@@ -91,11 +86,10 @@ struct SectionListView: View {
                     VStack(spacing: 7) {
                         ForEach(items) { dest in
                             Button {
-                                
+                                // action...
                             } label: {
                                 if items.count == 0 {
                                     Text("No Result Found")
-                                    
                                 }
                                 HStack {
                                     ElementIcon(type: dest.elementIcon)
