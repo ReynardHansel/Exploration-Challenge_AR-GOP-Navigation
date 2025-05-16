@@ -70,7 +70,7 @@ struct SectionListView: View {
     let items: [Destination]
     var isSearching: Bool = false
     
-    @ObservedObject var vm = BottomSheetHomeViewModel()
+    @ObservedObject var vm = NavigationHomeViewModel()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -170,10 +170,13 @@ struct HomeContentView: View {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
-                        Image_recommendation(imageName: .collab04LabApple,     location: "Lab Collab 4")
-                        Image_recommendation(imageName: .toiletGOP9,           location: "Toilet GOP 9")
-                        Image_recommendation(imageName: .kopiArabicaTheBreeze, location: "Kopi Arabica The Breeze")
-                        Image_recommendation(imageName: .stairsToParking,      location: "Stairs to Parking")
+                        ForEach(destinations) { destination in
+                            Image_recommendation(location: destination)
+                        }
+//                        Image_recommendation(imageName: .collab04LabApple,     location: "Lab Collab 4")
+//                        Image_recommendation(imageName: .toiletGOP9,           location: "Toilet GOP 9")
+//                        Image_recommendation(imageName: .kopiArabicaTheBreeze, location: "Kopi Arabica The Breeze")
+//                        Image_recommendation(imageName: .stairsToParking,      location: "Stairs to Parking")
                     }
                     .padding(.horizontal, 1)
                 }

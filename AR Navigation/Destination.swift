@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Foundation
+import DeveloperToolsSupport
 
 // Model
 struct Destination: Identifiable {
@@ -16,6 +17,7 @@ struct Destination: Identifiable {
     let destinationCoordinate: CLLocationCoordinate2D
     let icon : String
     let elementIcon: ElementIconType
+    let images: [ImageResource]?
 }
 
 //let destinationDB: [Destination] = [
@@ -105,27 +107,31 @@ let showcaseDestination = [
         nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         destinationCoordinate: CLLocationCoordinate2D(latitude: -6.302146341750258, longitude: 106.65258037385355),
         icon: "chair.lounge.fill",
-        elementIcon: .other
+        elementIcon: .other,
+        images: [.colab41, .colab42, .colab43, .colab44]
     ),
     Destination( // LOBBY
         name: "Toilet GOP 9",
         nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         destinationCoordinate: CLLocationCoordinate2D(latitude: -6.30225186125706, longitude: 106.65222278509515),
         icon: "toilet.fill",
-        elementIcon: .toilet
+        elementIcon: .toilet,
+        images: [.toiletGOP9, .toilet91, .toilet92, .toilet93, .toilet94]
     ),
     Destination( // LOBBY
         name: "Stairs to Parking",
         nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         destinationCoordinate: CLLocationCoordinate2D(latitude: -6.301756786203655, longitude: 106.65200317681277),
         icon: "parkingsign",
-        elementIcon: .other
+        elementIcon: .other,
+        images: [.stairsToParking]
     ),
     Destination( // LOBBY
         name: "Kopi Arabica The Breeze",
         nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         destinationCoordinate: CLLocationCoordinate2D(latitude: -6.301725860690979, longitude: 106.65313730957605),
         icon: "chair.lounge.fill",
-        elementIcon: .FnB
+        elementIcon: .FnB,
+        images: [.kopiArabicaTheBreeze]
     ),
 ]

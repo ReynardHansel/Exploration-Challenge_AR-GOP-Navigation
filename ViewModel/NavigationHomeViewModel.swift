@@ -11,8 +11,26 @@ import Combine
 final class NavigationHomeViewModel: ObservableObject {
     static let shared = NavigationHomeViewModel()
     
-    @Published var sheetDetent: PresentationDetent = .fraction(0.09)
+    /// Selected Destination
+    @Published var selectedDestination: Destination?
     
-    private init() {}
+    /// to print the selected destination whenever it changes
+//    private var cancellables = Set<AnyCancellable>()
+//    init() {
+//            // whenever `selectedDestination` changes, print the new value
+//            $selectedDestination
+//                .sink { newDestination in
+//                    if let dest = newDestination {
+//                        print("✅ selectedDestination changed to: \(dest.name) @ \(dest.destinationCoordinate.latitude),\(dest.destinationCoordinate.longitude)")
+//                    } else {
+//                        print("🟡 selectedDestination was cleared")
+//                    }
+//                }
+//                .store(in: &cancellables)
+//        }
+    
+//    @Published var sheetDetent: PresentationDetent = .fraction(0.09)
+    
+//    private init() {}
     
 }
