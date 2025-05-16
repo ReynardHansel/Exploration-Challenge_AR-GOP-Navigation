@@ -69,6 +69,8 @@ struct SectionListView: View {
     let title: String
     let items: [Destination]
     var isSearching: Bool = false
+    
+    @ObservedObject var vm = BottomSheetHomeViewModel()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -86,7 +88,9 @@ struct SectionListView: View {
                     VStack(spacing: 7) {
                         ForEach(items) { dest in
                             Button {
-                                // action...
+                                /// Set Selected Destination
+                                vm.selectedDestination = dest
+//                                print("Selected destination: \(dest.name)")
                             } label: {
                                 if items.count == 0 {
                                     Text("No Result Found")

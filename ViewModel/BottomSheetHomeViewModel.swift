@@ -18,6 +18,9 @@ final class BottomSheetHomeViewModel: ObservableObject {
     /// Filtered by `searchText`
     @Published private(set) var filteredDestinations: [Destination] = []
     
+    /// Selected Destination
+    @Published var selectedDestination: Destination?
+    
     private var cancellables = Set<AnyCancellable>()
     
     init() {
