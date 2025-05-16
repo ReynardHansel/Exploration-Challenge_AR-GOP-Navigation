@@ -59,7 +59,7 @@ struct BottomSheet_Home: View {
                 }
             }
             .padding(.horizontal, 21)
-            .padding(.vertical, 30)
+            .padding(.vertical, 25)
             .background(Color.background)
         }
     }

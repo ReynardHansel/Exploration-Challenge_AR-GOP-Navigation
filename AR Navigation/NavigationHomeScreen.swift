@@ -57,7 +57,7 @@ struct NavigationHomeScreen: View {
             .sheet(isPresented: $isBottomSheetOpen) {
 
                 BottomSheet_Home()
-                    .presentationDetents([.fraction(0.1), .medium, .large])
+                    .presentationDetents([.fraction(0.09), .medium, .large])
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled(upThrough: .large))
                     .presentationCornerRadius(20)
