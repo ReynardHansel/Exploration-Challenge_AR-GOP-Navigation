@@ -12,40 +12,44 @@ struct BottomSheet_Home: View {
     @ObservedObject private var navVM = NavigationHomeViewModel.shared
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // — Search Bar
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundStyle(Color.customPrimary.opacity(0.8))
-                    
-                    TextField(
-                        "",
-                        text: $vm.searchText,
-                        prompt: Text("Search your destination…")
-                            .foregroundStyle(Color.customPrimary.opacity(0.5))
-                    )
-                    
-                    if !vm.searchText.isEmpty {
-                        Button {
-                            vm.clearSearch()
-                        } label: {
-                            Image(systemName: "xmark.circle")
-                                .foregroundStyle(Color.red)
-                        }
+        VStack(spacing: 20) {
+            Color.clear.frame(height: 3)
+            
+            // — Search Bar
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(Color.customPrimary.opacity(0.8))
+
+                TextField(
+                    "",
+                    text: $vm.searchText,
+                    prompt: Text("Search your destination…")
+                        .foregroundStyle(Color.customPrimary.opacity(0.5))
+                )
+
+                if !vm.searchText.isEmpty {
+                    Button {
+                        vm.clearSearch()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .foregroundStyle(Color.red)
                     }
                 }
-                .padding(12)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.customPrimary, lineWidth: 1)
-                )
-                
+            }
+            .padding(12)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.customPrimary, lineWidth: 1)
+            )
+
+            ScrollView {
                 // — Content
                 if vm.searchText.isEmpty {
-                    HomeContentView(destinations: vm.allDestinations, searchText: $vm.searchText)
+                    HomeContentView(
+                        destinations: vm.allDestinations,
+                        searchText: $vm.searchText)
                 } else {
                     SectionListView(
                         title: "Search Results",
@@ -54,11 +58,12 @@ struct BottomSheet_Home: View {
                     )
                 }
             }
-            .padding(.horizontal, 21)
-            .padding(.vertical, 25)
-            .background(Color.background)
+
         }
-        .sheet(isPresented: $navVM.showLocationBottomSheet){
+        .padding(.horizontal, 21)
+        .padding(.vertical, 25)
+        .background(Color.background)
+        .sheet(isPresented: $navVM.showLocationBottomSheet) {
             BottomSheet_Location(locData: navVM.selectedDestination!)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
@@ -79,7 +84,7 @@ struct SectionListView: View {
     let title: String
     let items: [Destination]
     var isSearching: Bool = false
-    
+
     @ObservedObject var vm = NavigationHomeViewModel.shared
 
     var body: some View {
@@ -90,10 +95,10 @@ struct SectionListView: View {
 
             Group {
                 if items.isEmpty {
-                Text("No results")
-                    .italic()
-                    .foregroundColor(Color.customPrimary.opacity(0.6))
-                    .frame(maxWidth: .infinity, minHeight: 60)
+                    Text("No results")
+                        .italic()
+                        .foregroundColor(Color.customPrimary.opacity(0.6))
+                        .frame(maxWidth: .infinity, minHeight: 60)
                 } else {
                     VStack(spacing: 7) {
                         ForEach(items) { dest in
@@ -102,8 +107,8 @@ struct SectionListView: View {
                                 vm.selectedDestination = dest
                                 vm.showLocationBottomSheet.toggle()
                                 vm.resetDetent = .fraction(0.09)
-//                                vm.showHomeBottomSheet.toggle()
-//                                print("Selected destination: \(dest.name)")
+                                //                                vm.showHomeBottomSheet.toggle()
+                                //                                print("Selected destination: \(dest.name)")
                             } label: {
                                 if items.count == 0 {
                                     Text("No Result Found")
@@ -113,13 +118,16 @@ struct SectionListView: View {
                                         .padding(.trailing, 7)
                                     Text(dest.name)
                                         .fontWeight(.semibold)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(
+                                            maxWidth: .infinity,
+                                            alignment: .leading)
                                 }
                             }
                             .padding(.vertical, 10)
-                            
+
                             if dest.id != items.last?.id {
-                                Divider().overlay(Color.customPrimary.opacity(1))
+                                Divider().overlay(
+                                    Color.customPrimary.opacity(1))
                             }
                         }
                     }
@@ -155,7 +163,6 @@ struct QuickButton: View {
     }
 }
 
-
 // MARK: View options
 struct HomeContentView: View {
     let destinations: [Destination]
@@ -169,9 +176,13 @@ struct HomeContentView: View {
                     .font(.headline).fontWeight(.bold)
                     .foregroundColor(Color.customPrimary)
                 HStack(spacing: 12) {
-                    QuickButton(iconName: "toilet.fill",    bgColor: Color.elementBrown)
-                    QuickButton(iconName: "parkingsign",    bgColor: Color.elementDarkGreen)
-                    QuickButton(iconName: "cart.fill",      bgColor: Color.elementYellow)
+                    QuickButton(
+                        iconName: "toilet.fill", bgColor: Color.elementBrown)
+                    QuickButton(
+                        iconName: "parkingsign", bgColor: Color.elementDarkGreen
+                    )
+                    QuickButton(
+                        iconName: "cart.fill", bgColor: Color.elementYellow)
                 }
             }
 
@@ -186,10 +197,10 @@ struct HomeContentView: View {
                         ForEach(destinations) { destination in
                             Image_recommendation(location: destination)
                         }
-//                        Image_recommendation(imageName: .collab04LabApple,     location: "Lab Collab 4")
-//                        Image_recommendation(imageName: .toiletGOP9,           location: "Toilet GOP 9")
-//                        Image_recommendation(imageName: .kopiArabicaTheBreeze, location: "Kopi Arabica The Breeze")
-//                        Image_recommendation(imageName: .stairsToParking,      location: "Stairs to Parking")
+                        //                        Image_recommendation(imageName: .collab04LabApple,     location: "Lab Collab 4")
+                        //                        Image_recommendation(imageName: .toiletGOP9,           location: "Toilet GOP 9")
+                        //                        Image_recommendation(imageName: .kopiArabicaTheBreeze, location: "Kopi Arabica The Breeze")
+                        //                        Image_recommendation(imageName: .stairsToParking,      location: "Stairs to Parking")
                     }
                     .padding(.horizontal, 1)
                 }

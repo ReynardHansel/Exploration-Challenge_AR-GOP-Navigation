@@ -10,6 +10,7 @@ import SwiftUI
 struct BottomSheet_Location: View {
     let locData: Destination
     @State private var isAboutExpanded = false
+    @ObservedObject private var navVM = NavigationHomeViewModel.shared
 
     var body: some View {
         ScrollView {
@@ -23,8 +24,13 @@ struct BottomSheet_Location: View {
                             .fontWeight(.bold)
                             .frame(maxWidth: 280, alignment: .leading)
                         Spacer()
-                        Image(systemName: "xmark.circle")
-                            .font(.system(size: 27, weight: .medium))
+                        
+                        Button {
+                            navVM.showLocationBottomSheet.toggle()
+                        } label: {
+                            Image(systemName: "xmark.circle")
+                                .font(.system(size: 27, weight: .medium))
+                        }
                     }
                     .foregroundStyle(Color.customPrimary)
 
