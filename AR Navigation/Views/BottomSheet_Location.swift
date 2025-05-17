@@ -21,6 +21,7 @@ struct BottomSheet_Location: View {
                         Text(locData.name)
                             .font(.title)
                             .fontWeight(.bold)
+                            .frame(maxWidth: 280, alignment: .leading)
                         Spacer()
                         Image(systemName: "xmark.circle")
                             .font(.system(size: 27, weight: .medium))
@@ -109,9 +110,10 @@ struct BottomSheet_Location: View {
 
                         if let about = locData.description, !about.isEmpty {
                             Text(about)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding()
                                 .lineLimit(isAboutExpanded ? nil : 3)
-                                .foregroundColor(.customPrimary)
+                                .foregroundStyle(.customPrimary)
                                 .animation(.easeInOut, value: isAboutExpanded)
                                 .background(Color.backgroundOffedWhite)
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -120,7 +122,26 @@ struct BottomSheet_Location: View {
                     }
                     
                     // MARK: - Address
-                    
+                    if let address = locData.address {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("Address")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.customPrimary)
+
+                            Text(address)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                                .foregroundStyle(.customPrimary)
+                                .background(Color.backgroundOffedWhite)
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.customPrimary, lineWidth: 1)
+                                )
+                        }
+                    }
+
                 }
 
             }
@@ -132,7 +153,7 @@ struct BottomSheet_Location: View {
 }
 
 #Preview {
-    let destination = showcaseDestination.first
+    let destination = showcaseDestination.last
 
     BottomSheet_Location(locData: destination!)
 }
