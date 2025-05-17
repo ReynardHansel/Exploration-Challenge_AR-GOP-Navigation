@@ -9,14 +9,17 @@ import SwiftUI
 
 struct Image_recommendation: View {
     let location: Destination
+    @ObservedObject private var vm = NavigationHomeViewModel.shared
 
     var body: some View {
-        @ObservedObject var vm = NavigationHomeViewModel()
         let imgResource = location.images?.first ?? .gopLogo
         
         Button {
-//            print("Button tapped")
+//            print("Button tapped 1")
             vm.selectedDestination = location
+            vm.showLocationBottomSheet.toggle()
+            vm.resetDetent = .fraction(0.09)
+//            print("Button tapped 2")
         } label: {
             ZStack(alignment: .bottomLeading) {
                 Image(imgResource)
