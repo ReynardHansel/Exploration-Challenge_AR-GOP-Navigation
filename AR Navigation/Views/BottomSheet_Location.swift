@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BottomSheet_Location: View {
     let locData: Destination
+    @State private var isAboutExpanded = false
 
     var body: some View {
         ScrollView {
@@ -77,17 +78,49 @@ struct BottomSheet_Location: View {
                             }
                         }
                     }
-                    
+
                     // MARK: - About
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("About")
-                            .font(.headline).fontWeight(.bold)
-                            .foregroundColor(Color.customPrimary)
-                        
-                        Text(locData.name)
-                            .font(.caption)
-                            .foregroundStyle(Color.secondary)
+                        HStack {
+                            Text("About")
+                                .font(.headline).fontWeight(.bold)
+                                .foregroundColor(Color.customPrimary)
+
+                            Spacer()
+
+                            if let about = locData.description,
+                                about.count > 100
+                            {
+                                Button {
+                                    withAnimation {
+                                        isAboutExpanded.toggle()
+                                    }
+                                } label: {
+                                    Text(
+                                        isAboutExpanded
+                                            ? "Read Less" : "Read More"
+                                    )
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.blue)
+                                }
+                            }
+                        }
+
+                        if let about = locData.description, !about.isEmpty {
+                            Text(about)
+                                .padding()
+                                .lineLimit(isAboutExpanded ? nil : 3)
+                                .foregroundColor(.customPrimary)
+                                .animation(.easeInOut, value: isAboutExpanded)
+                                .background(Color.backgroundOffedWhite)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.customPrimary, lineWidth: 1))
+                        }
                     }
+                    
+                    // MARK: - Address
+                    
                 }
 
             }
