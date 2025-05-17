@@ -11,6 +11,14 @@ import Combine
 final class NavigationHomeViewModel: ObservableObject {
     static let shared = NavigationHomeViewModel()
     
+    /// Sheet State
+    @Published var showHomeBottomSheet: Bool = true
+    @Published var showLocationBottomSheet: Bool = false
+    
+    /// Helper:
+    /// Use this template to toggle sheet state:
+    /// NavigationHomeViewModel.shared.show{X}BottomSheet.toggle()
+    
     /// Selected Destination
     @Published var selectedDestination: Destination?
     

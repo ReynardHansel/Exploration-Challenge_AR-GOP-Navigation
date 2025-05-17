@@ -11,8 +11,8 @@ import SwiftUI
 
 struct NavigationHomeScreen: View {
     // Bottom Sheet State
-    @State private var isBottomSheetOpen = true
-//    @ObservedObject var navVM = NavigationHomeViewModel.shared
+//    @State private var isBottomSheetOpen = true
+    @ObservedObject private var navVM = NavigationHomeViewModel.shared
 //    @ObservedObject var detent : PresentationDetent = navigationhomeviewmodel.shared.sheetDetent
     
     // Location Manager to track user position
@@ -28,7 +28,7 @@ struct NavigationHomeScreen: View {
     @State private var cameraPosition: MapCameraPosition = .userLocation(
         fallback: .automatic)
 
-    @State private var selectedDestination: Destination? = nil
+//    @State private var selectedDestination: Destination? = nil
     
     @State var showModal : Bool = false
 
@@ -56,7 +56,7 @@ struct NavigationHomeScreen: View {
             .onAppear {
 //                locationManager.requestLocation()
             }
-            .sheet(isPresented: $isBottomSheetOpen) {
+            .sheet(isPresented: $navVM.showHomeBottomSheet) {
 
                 BottomSheet_Home()
                     .presentationDetents([.fraction(0.09), .medium, .large])
@@ -66,8 +66,15 @@ struct NavigationHomeScreen: View {
                     .interactiveDismissDisabled()
                     .presentationBackground(Color.background)
             }
-
-
+            .sheet(isPresented: $navVM.showLocationBottomSheet){
+                BottomSheet_Location(locData: navVM.selectedDestination!)
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackgroundInteraction(.enabled(upThrough: .large))
+                    .presentationCornerRadius(20)
+                    .interactiveDismissDisabled()
+                    .presentationBackground(Color.background)
+            }
     }
 }
 

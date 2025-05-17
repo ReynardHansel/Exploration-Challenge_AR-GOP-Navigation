@@ -12,6 +12,8 @@ struct MainView: View {
     @StateObject var locationDataManager : LocationDataManager = LocationDataManager()
     @StateObject var pathFindingManager : PathfindingManager = PathfindingManager()
     
+    let destination = showcaseDestination.first
+    
     var body: some View {
 //        NavigationStack(path: $path) {
 //            AnimatedLogoSplashView(path: $path)
@@ -34,11 +36,12 @@ struct MainView: View {
 //            }
 //        }
 //        BottomSheet_Home()
-        NavigationHomeScreen(
-            path: $path,
-            locationDataManager: locationDataManager,
-            pathFindingManager: pathFindingManager
-        )
+        BottomSheet_Location(locData: destination!)
+//        NavigationHomeScreen(
+//            path: $path,
+//            locationDataManager: locationDataManager,
+//            pathFindingManager: pathFindingManager
+//        )
     }
 }
 

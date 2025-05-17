@@ -70,7 +70,7 @@ struct SectionListView: View {
     let items: [Destination]
     var isSearching: Bool = false
     
-    @ObservedObject var vm = NavigationHomeViewModel()
+    @ObservedObject var vm = NavigationHomeViewModel.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -90,6 +90,8 @@ struct SectionListView: View {
                             Button {
                                 /// Set Selected Destination
                                 vm.selectedDestination = dest
+                                vm.showLocationBottomSheet.toggle()
+                                vm.showHomeBottomSheet.toggle()
 //                                print("Selected destination: \(dest.name)")
                             } label: {
                                 if items.count == 0 {
