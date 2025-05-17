@@ -11,6 +11,10 @@ import Combine
 final class NavigationHomeViewModel: ObservableObject {
     static let shared = NavigationHomeViewModel()
     
+//    @Published var sheetDetent: PresentationDetent = .fraction(0.09)
+    @Published var resetDetent: PresentationDetent = .fraction(0.09)
+
+    
     /// Sheet State
     @Published var showHomeBottomSheet: Bool = true
     @Published var showLocationBottomSheet: Bool = false
@@ -37,7 +41,6 @@ final class NavigationHomeViewModel: ObservableObject {
 //                .store(in: &cancellables)
 //        }
     
-//    @Published var sheetDetent: PresentationDetent = .fraction(0.09)
     
 //    private init() {}
     

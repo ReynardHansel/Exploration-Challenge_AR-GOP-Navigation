@@ -9,7 +9,8 @@ import SwiftUI
 
 struct BottomSheet_Home: View {
     @StateObject private var vm = BottomSheetHomeViewModel()
-    
+    @ObservedObject private var navVM = NavigationHomeViewModel.shared
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -57,6 +58,15 @@ struct BottomSheet_Home: View {
             .padding(.vertical, 25)
             .background(Color.background)
         }
+        .sheet(isPresented: $navVM.showLocationBottomSheet){
+            BottomSheet_Location(locData: navVM.selectedDestination!)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .large))
+                .presentationCornerRadius(20)
+                .interactiveDismissDisabled()
+                .presentationBackground(Color.background)
+        }
     }
 }
 
@@ -91,7 +101,8 @@ struct SectionListView: View {
                                 /// Set Selected Destination
                                 vm.selectedDestination = dest
                                 vm.showLocationBottomSheet.toggle()
-                                vm.showHomeBottomSheet.toggle()
+                                vm.resetDetent = .fraction(0.09)
+//                                vm.showHomeBottomSheet.toggle()
 //                                print("Selected destination: \(dest.name)")
                             } label: {
                                 if items.count == 0 {

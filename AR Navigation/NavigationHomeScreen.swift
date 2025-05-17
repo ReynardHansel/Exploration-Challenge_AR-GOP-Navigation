@@ -59,16 +59,7 @@ struct NavigationHomeScreen: View {
             .sheet(isPresented: $navVM.showHomeBottomSheet) {
 
                 BottomSheet_Home()
-                    .presentationDetents([.fraction(0.09), .medium, .large])
-                    .presentationDragIndicator(.visible)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                    .presentationCornerRadius(20)
-                    .interactiveDismissDisabled()
-                    .presentationBackground(Color.background)
-            }
-            .sheet(isPresented: $navVM.showLocationBottomSheet){
-                BottomSheet_Location(locData: navVM.selectedDestination!)
-                    .presentationDetents([.medium, .large])
+                    .presentationDetents([.fraction(0.09), .medium, .large], selection: $navVM.resetDetent)
                     .presentationDragIndicator(.visible)
                     .presentationBackgroundInteraction(.enabled(upThrough: .large))
                     .presentationCornerRadius(20)

@@ -36,12 +36,12 @@ struct MainView: View {
 //            }
 //        }
 //        BottomSheet_Home()
-        BottomSheet_Location(locData: destination!)
-//        NavigationHomeScreen(
-//            path: $path,
-//            locationDataManager: locationDataManager,
-//            pathFindingManager: pathFindingManager
-//        )
+//        BottomSheet_Location(locData: destination!)
+        NavigationHomeScreen(
+            path: $path,
+            locationDataManager: locationDataManager,
+            pathFindingManager: pathFindingManager
+        )
     }
 }
 
