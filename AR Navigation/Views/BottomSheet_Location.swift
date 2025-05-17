@@ -26,7 +26,9 @@ struct BottomSheet_Location: View {
                         Spacer()
                         
                         Button {
+                            navVM.selectedDestination = nil
                             navVM.showLocationBottomSheet.toggle()
+                            navVM.resetDetent = .medium
                         } label: {
                             Image(systemName: "xmark.circle")
                                 .font(.system(size: 27, weight: .medium))

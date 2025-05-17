@@ -85,6 +85,7 @@ struct SectionListView: View {
     let items: [Destination]
     var isSearching: Bool = false
 
+//    @ObservedObject var sheetVM = BottomSheetHomeViewModel()
     @ObservedObject var vm = NavigationHomeViewModel.shared
 
     var body: some View {
@@ -104,6 +105,7 @@ struct SectionListView: View {
                         ForEach(items) { dest in
                             Button {
                                 /// Set Selected Destination
+                                UIApplication.shared.hideKeyboard()
                                 vm.selectedDestination = dest
                                 vm.showLocationBottomSheet.toggle()
                                 vm.resetDetent = .fraction(0.09)
