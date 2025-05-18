@@ -8,6 +8,7 @@
 import CoreLocation
 import DeveloperToolsSupport
 import Foundation
+import SwiftUICore
 
 // Model
 struct Destination: Identifiable {
@@ -16,6 +17,7 @@ struct Destination: Identifiable {
     let nearestCoordinate: CLLocationCoordinate2D
     let destinationCoordinate: CLLocationCoordinate2D
     let icon: String
+    let color: Color
     let elementIcon: ElementIconType
     
     let images: [ImageResource]?
@@ -111,6 +113,7 @@ let showcaseDestination = [
         destinationCoordinate: CLLocationCoordinate2D(
             latitude: -6.302146341750258, longitude: 106.65258037385355),
         icon: "chair.lounge.fill",
+        color: .elementBrokenBrown,
         elementIcon: .other,
         images: [.colab41, .colab42, .colab43, .colab44],
         description:
@@ -128,6 +131,7 @@ let showcaseDestination = [
         destinationCoordinate: CLLocationCoordinate2D(
             latitude: -6.30225186125706, longitude: 106.65222278509515),
         icon: "toilet.fill",
+        color: .elementBrown,
         elementIcon: .toilet,
         images: [.toiletGOP9, .toilet91, .toilet92, .toilet93, .toilet94],
         description:
@@ -145,6 +149,7 @@ let showcaseDestination = [
         destinationCoordinate: CLLocationCoordinate2D(
             latitude: -6.301756786203655, longitude: 106.65200317681277),
         icon: "parkingsign",
+        color: .elementDarkGreen,
         elementIcon: .other,
         images: [.stairsToParking],
         description: "The stairs that lead to the parking lot.",
@@ -155,7 +160,8 @@ let showcaseDestination = [
         nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         destinationCoordinate: CLLocationCoordinate2D(
             latitude: -6.301725860690979, longitude: 106.65313730957605),
-        icon: "chair.lounge.fill",
+        icon: "fork.knife",
+        color: .elementOrange,
         elementIcon: .FnB,
         images: [.kopiArabicaTheBreeze],
         description:

@@ -11,61 +11,78 @@ import SwiftUI
 
 struct NavigationHomeScreen: View {
     // Bottom Sheet State
-//    @State private var isBottomSheetOpen = true
     @ObservedObject private var navVM = NavigationHomeViewModel.shared
-//    @ObservedObject var detent : PresentationDetent = navigationhomeviewmodel.shared.sheetDetent
-    
+
     // Location Manager to track user position
-    @Binding var path : NavigationPath
-    
-    
+    @Binding var path: NavigationPath
+
     //@StateObject private var locationManager = LocationManager()
 
-    @StateObject var locationDataManager : LocationDataManager
-    @StateObject var pathFindingManager : PathfindingManager
-    
-    // Map camera position
+    @StateObject var locationDataManager: LocationDataManager
+    @StateObject var pathFindingManager: PathfindingManager
+
+    // Map stuff
     @State private var cameraPosition: MapCameraPosition = .userLocation(
         fallback: .automatic)
+    @State private var mapSelection: MKMapItem?
 
-//    @State private var selectedDestination: Destination? = nil
-    
-    @State var showModal : Bool = false
+    @State var showModal: Bool = false
 
     // Access / import destination data (from: Destination.swift)
-    let destinations = showcaseDestination //destinationDBShowcase
+    let destinations = showcaseDestination  //destinationDBShowcase
 
     var body: some View {
-            // Map as background
-            Map(position: $cameraPosition) {
-                UserAnnotation()
+        // Map as background
+        Map(position: $cameraPosition, selection: $mapSelection) {
+            UserAnnotation()
 
-                //* NOTE: How the note below works:
-                // If selectedDestination && locationManager.lastLocation is not nil (safely unwraps those 2 variables) --> Than the MapPolyline will be made. If not, the code will simply not execute
-                MapPolyline(coordinates: pathFindingManager.pathCoordinate)
+            //* NOTE: How the note below works:
+            // If selectedDestination && locationManager.lastLocation is not nil (safely unwraps those 2 variables) --> Than the MapPolyline will be made. If not, the code will simply not execute
+            MapPolyline(coordinates: pathFindingManager.pathCoordinate)
                 .stroke(Color.blue, lineWidth: 5)
-                
-                ForEach(destinations) { destination in
-                    Marker(destination.name, systemImage: destination.icon, coordinate: destination.destinationCoordinate)
+
+            ForEach(destinations) { destination in
+                //                    print(destination.name)
+                //                    Marker(
+                //                        destination.name,
+                //                        systemImage: destination.icon,
+                //                        coordinate: destination.destinationCoordinate
+                //                    )
+                Annotation(
+                    destination.name,
+                    coordinate: destination.destinationCoordinate
+                ) {
+                    CustomMapAnnotation(location: destination)
                 }
             }
-            .mapControls {
-                MapUserLocationButton()
-            }
-            .mapStyle(.standard(pointsOfInterest: .all))
-            .onAppear {
-//                locationManager.requestLocation()
-            }
-            .sheet(isPresented: $navVM.showHomeBottomSheet) {
+        }
 
-                BottomSheet_Home()
-                    .presentationDetents([.fraction(0.09), .medium, .large], selection: $navVM.resetDetent)
-                    .presentationDragIndicator(.visible)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                    .presentationCornerRadius(20)
-                    .interactiveDismissDisabled()
-                    .presentationBackground(Color.background)
-            }
+        .mapControls {
+            MapUserLocationButton()
+        }
+        .mapStyle(.standard(pointsOfInterest: .all))
+//        .onAppear {
+//            //                locationManager.requestLocation()
+//        }
+//        .onChange(of: mapSelection) { oldValue, newValue in
+//            
+//            if mapSelection != nil {
+//                print("Selection: \(newValue)")
+//            }
+//        }
+        .sheet(isPresented: $navVM.showHomeBottomSheet) {
+
+            BottomSheet_Home()
+                .presentationDetents(
+                    [.fraction(0.09), .medium, .large],
+                    selection: $navVM.resetDetent
+                )
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .large))
+                .presentationCornerRadius(20)
+                .interactiveDismissDisabled()
+                .presentationBackground(Color.background)
+        }
     }
 }
 
