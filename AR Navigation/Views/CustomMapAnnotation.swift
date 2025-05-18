@@ -81,10 +81,16 @@ struct CustomMapAnnotation: View {
         }
         .onTapGesture {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                // toggle selection
+              if navVM.selectedDestination?.id == location.id {
+                // tapped the already-selected pin → deselect & hide sheet
+                navVM.selectedDestination = nil
+                navVM.showLocationBottomSheet = false
+              } else {
+                // tapped a new pin → select & show sheet
                 navVM.selectedDestination = location
-                navVM.showLocationBottomSheet.toggle()
+                navVM.showLocationBottomSheet = true
                 navVM.resetDetent = .fraction(0.09)
+              }
             }
         }
 //        .onChange(of: isSelected) { selected in
