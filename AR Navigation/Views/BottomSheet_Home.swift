@@ -104,11 +104,14 @@ struct SectionListView: View {
                     VStack(spacing: 7) {
                         ForEach(items) { dest in
                             Button {
-                                /// Set Selected Destination
+                                vm.select(destination: dest)
+                                
                                 UIApplication.shared.hideKeyboard()
-                                vm.selectedDestination = dest
-                                vm.showLocationBottomSheet.toggle()
-                                vm.resetDetent = .fraction(0.09)
+                                
+                                /// Set Selected Destination
+//                                vm.selectedDestination = dest
+//                                vm.showLocationBottomSheet.toggle()
+//                                vm.resetDetent = .fraction(0.09)
                                 //                                vm.showHomeBottomSheet.toggle()
                                 //                                print("Selected destination: \(dest.name)")
                             } label: {

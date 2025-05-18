@@ -36,10 +36,12 @@ struct NavigationHomeScreen: View {
         Map(position: $cameraPosition, selection: $mapSelection) {
             UserAnnotation()
 
-            //* NOTE: How the note below works:
-            // If selectedDestination && locationManager.lastLocation is not nil (safely unwraps those 2 variables) --> Than the MapPolyline will be made. If not, the code will simply not execute
-            MapPolyline(coordinates: pathFindingManager.pathCoordinate)
+            if navVM.selectedDestination != nil {
+                MapPolyline(
+                    coordinates: navVM.pathFindingManager.pathCoordinate
+                )
                 .stroke(Color.blue, lineWidth: 5)
+            }
 
             ForEach(destinations) { destination in
                 //                    print(destination.name)
@@ -56,20 +58,19 @@ struct NavigationHomeScreen: View {
                 }
             }
         }
-
         .mapControls {
             MapUserLocationButton()
         }
         .mapStyle(.standard(pointsOfInterest: .all))
-//        .onAppear {
-//            //                locationManager.requestLocation()
-//        }
-//        .onChange(of: mapSelection) { oldValue, newValue in
-//            
-//            if mapSelection != nil {
-//                print("Selection: \(newValue)")
-//            }
-//        }
+        //        .onAppear {
+        //            //                locationManager.requestLocation()
+        //        }
+        //        .onChange(of: mapSelection) { oldValue, newValue in
+        //
+        //            if mapSelection != nil {
+        //                print("Selection: \(newValue)")
+        //            }
+        //        }
         .sheet(isPresented: $navVM.showHomeBottomSheet) {
 
             BottomSheet_Home()

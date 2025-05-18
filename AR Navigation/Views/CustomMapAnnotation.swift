@@ -87,9 +87,10 @@ struct CustomMapAnnotation: View {
                 navVM.showLocationBottomSheet = false
               } else {
                 // tapped a new pin → select & show sheet
-                navVM.selectedDestination = location
-                navVM.showLocationBottomSheet = true
-                navVM.resetDetent = .fraction(0.09)
+                  navVM.select(destination: location)
+//                navVM.selectedDestination = location
+//                navVM.showLocationBottomSheet = true
+//                navVM.resetDetent = .fraction(0.09)
               }
             }
         }
