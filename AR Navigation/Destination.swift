@@ -178,3 +178,42 @@ let showcaseDestination = [
             """
     ),
 ]
+
+let recentDestinations = [
+    Destination(  // COllab
+        name: "Collab 04 Lab Apple",
+        nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+        destinationCoordinate: CLLocationCoordinate2D(
+            latitude: -6.302146341750258, longitude: 106.65258037385355),
+        icon: "chair.lounge.fill",
+        color: .elementBrokenBrown,
+        elementIcon: .other,
+        images: [.colab41, .colab42, .colab43, .colab44],
+        description:
+            "A co-working place at the corner of Apple Developer Academy @ BINUS Tangerang. Anyone can book this place and use it as their own or with their team. The place has a TV with an airplay available and a charging port.",
+        address:
+            """
+            Jl. Grand Boulevard, BSD Green Office Park 9 
+            BSD City, Sampora, Kec. Cisauk, Kabupaten Tangerang
+            Banten 15345
+            """
+    ),
+    Destination(  // LOBBY
+        name: "Toilet GOP 9",
+        nearestCoordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+        destinationCoordinate: CLLocationCoordinate2D(
+            latitude: -6.30225186125706, longitude: 106.65222278509515),
+        icon: "toilet.fill",
+        color: .elementBrown,
+        elementIcon: .toilet,
+        images: [.toiletGOP9, .toilet91, .toilet92, .toilet93, .toilet94],
+        description:
+            "The toilet that is the nearest from the academy. It is located on the ground floor of the building. It's very cozy and clean, although it might be a bit crowded during peak hours, and generally more crowded than the toilet at the basement.",
+        address:
+            """
+            Jl. Grand Boulevard, BSD Green Office Park 9 
+            BSD City, Sampora, Kec. Cisauk, Kabupaten Tangerang
+            Banten 15345
+            """
+    ),
+]

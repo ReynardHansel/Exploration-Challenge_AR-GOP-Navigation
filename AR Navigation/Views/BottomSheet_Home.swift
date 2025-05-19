@@ -171,6 +171,7 @@ struct QuickButton: View {
 // MARK: View options
 struct HomeContentView: View {
     let destinations: [Destination]
+    let recents = recentDestinations
     @Binding var searchText: String
 
     var body: some View {
@@ -213,7 +214,7 @@ struct HomeContentView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             // Recents
-            SectionListView(title: "Recents", items: destinations)
+            SectionListView(title: "Recents", items: recentDestinations)
 
             // All Locations
             SectionListView(title: "All Locations", items: destinations)
